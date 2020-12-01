@@ -52,7 +52,9 @@ Book.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
-    category: PropTypes.string,
+    category: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }),
   }),
   handleRemoveBook: PropTypes.func.isRequired,
 };
