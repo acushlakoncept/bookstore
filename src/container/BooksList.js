@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { fetchBooks } from '../redux/index';
 import Book from '../components/Book';
 import { removeBook } from '../redux/books/bookActions';
@@ -9,6 +9,11 @@ function BooksList({ bookData, fetchBooks }) {
   useEffect(() => {
     fetchBooks();
   }, []);
+
+  const filter = useSelector(state => state.filter);
+  const filterBooks = allBooks => (filter === 'All'
+    ? allBooks
+    : allBooks.filter(book => book.category.name === filter));
 
   const dispatch = useDispatch();
   const handleRemoveBook = id => dispatch(removeBook(id));
@@ -22,7 +27,7 @@ function BooksList({ bookData, fetchBooks }) {
     <div>
       {
         bookData
-        && bookData.books.map(book => (
+        && filterBooks(bookData.books).map(book => (
           <Book
             key={book.id}
             book={book}

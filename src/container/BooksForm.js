@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addBook } from '../redux/index';
 
 const CATEGORIES = [
-  'Action',
+  'Actions',
   'Biography',
   'History',
   'Horror',
@@ -14,14 +14,14 @@ const CATEGORIES = [
 function BooksForm() {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('Action');
+  const [category, setCategory] = useState('Actions');
 
   const handleSubmit = e => {
     e.preventDefault();
     if (title && category) {
       dispatch(addBook(title, category));
       setTitle('');
-      setCategory('Action');
+      setCategory('Actions');
       e.target.reset();
     }
   };

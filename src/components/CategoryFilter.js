@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const CATEGORIES = [
   'All',
-  'Action',
+  'Actions',
   'Biography',
   'History',
   'Horror',

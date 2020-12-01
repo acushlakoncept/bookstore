@@ -38,7 +38,6 @@ export const fetchBooks = () => function (dispatch) {
     })
     .then(response => {
       const books = response.data;
-      console.log(books);
       dispatch(fetchBooksSuccess(books));
     })
     .catch(error => {
