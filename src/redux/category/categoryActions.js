@@ -20,9 +20,3 @@ export const fetchCategoryFailure = (error) => {
   };
 };
 
-export const changeFilter = category => ({
-  type: actions.CHANGE_FILTER,
-  payload: {
-    category,
-  },
-});
