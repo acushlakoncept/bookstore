@@ -15,9 +15,9 @@ function BooksList({ bookData, fetchBooks }) {
 
   // eslint-disable-next-line no-nested-ternary
   return bookData.loading ? (
-    <h2>loading...</h2>
+    <h2 className="center">loading...</h2>
   ) : bookData.error ? (
-    <h2>{bookData.error}</h2>
+    <h2 className="center">{bookData.error}</h2>
   ) : (
     <div>
       {

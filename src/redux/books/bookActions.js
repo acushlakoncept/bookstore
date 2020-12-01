@@ -33,7 +33,7 @@ export const fetchBooksFailure = error => ({
 export const fetchBooks = () => function (dispatch) {
   dispatch(fetchBooksRequest());
   axios
-    .get('http://localhost:3001/api/v1/books/', {
+    .get('https://cush-bookstore-api.herokuapp.com/api/v1/books/', {
       mode: 'cors',
     })
     .then(response => {
