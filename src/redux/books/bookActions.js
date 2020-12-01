@@ -30,11 +30,6 @@ export const fetchBooksFailure = error => ({
   payload: error,
 });
 
-export const changeFilter = category => ({
-  type: actions.CHANGE_FILTER,
-  payload: category,
-});
-
 export const fetchBooks = () => function (dispatch) {
   dispatch(fetchBooksRequest());
   axios
