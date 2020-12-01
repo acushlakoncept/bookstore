@@ -4,7 +4,13 @@ import {
   FETCH_CATEGORY_FAILURE,
 } from './categoryTypes';
 
-const categoryReducer = (state = [], action) => {
+const initialState = {
+  loading: false,
+  categories: [],
+  error: '',
+};
+
+const categoryReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CATEGORY:
       return {
@@ -13,12 +19,14 @@ const categoryReducer = (state = [], action) => {
       };
     case FETCH_CATEGORY_SUCCESS:
       return {
+        ...state,
         loading: false,
         categories: action.payload,
         error: '',
       };
     case FETCH_CATEGORY_FAILURE:
       return {
+        ...state,
         loading: false,
         categories: [],
         error: action.payload,

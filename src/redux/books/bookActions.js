@@ -17,7 +17,7 @@ export const removeBook = id => ({
 });
 
 export const fetchBooksRequest = () => ({
-  type: actions.FETCH_BOOKS,
+  type: actions.FETCH_BOOKS_REQUEST,
 });
 
 export const fetchBooksSuccess = books => ({
@@ -33,9 +33,12 @@ export const fetchBooksFailure = error => ({
 export const fetchBooks = () => function (dispatch) {
   dispatch(fetchBooksRequest());
   axios
-    .get('https://cush-bookstore-api.herokuapp.com/api/v1/books')
+    .get('http://localhost:3001/api/v1/books/', {
+      mode: 'cors',
+    })
     .then(response => {
       const books = response.data;
+      console.log(books);
       dispatch(fetchBooksSuccess(books));
     })
     .catch(error => {

@@ -4,9 +4,9 @@ import filterReducer from './filter/filterReducer';
 import categoryReducer from './category/categoryReducer';
 
 const rootReducer = combineReducers({
-  book: bookReducer,
+  books: bookReducer,
   filter: filterReducer,
-  category: categoryReducer,
+  categories: categoryReducer,
 });
 
 export default rootReducer;

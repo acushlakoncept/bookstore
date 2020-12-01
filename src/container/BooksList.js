@@ -1,31 +1,45 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+/* eslint-disable react/prop-types */
+import React, { useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { fetchBooks } from '../redux/index';
 import Book from '../components/Book';
-import { removeBook } from '../actions/index';
+import { removeBook } from '../redux/books/bookActions';
 
-function BooksList() {
-  const allBooks = useSelector(state => state.book);
-  const filter = useSelector(state => state.filter);
+function BooksList({ bookData, fetchBooks }) {
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
   const dispatch = useDispatch();
   const handleRemoveBook = id => dispatch(removeBook(id));
 
-  const filterBooks = allBooks => (filter === 'All'
-    ? allBooks
-    : allBooks.filter(book => book.category === filter));
-
-  return (
+  // eslint-disable-next-line no-nested-ternary
+  return bookData.loading ? (
+    <h2>loading...</h2>
+  ) : bookData.error ? (
+    <h2>{bookData.error}</h2>
+  ) : (
     <div>
-      <div>
-        {filterBooks(allBooks).map(book => (
+      {
+        bookData
+        && bookData.books.map(book => (
           <Book
             key={book.id}
             book={book}
             handleRemoveBook={() => handleRemoveBook(book.id)}
           />
-        ))}
-      </div>
+        ))
+      }
     </div>
   );
 }
 
-export default BooksList;
+const mapStateToProps = state => ({
+  bookData: state.books,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchBooks: () => dispatch(fetchBooks()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BooksList);

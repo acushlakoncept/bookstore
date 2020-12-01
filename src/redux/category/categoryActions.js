@@ -22,7 +22,7 @@ export const fetchCategoryFailure = error => ({
 export const fetchCategories = () => function (dispatch) {
   dispatch(fetchCategoryRequest());
   axios
-    .get('https://cush-bookstore-api.herokuapp.com/api/v1/category')
+    .get('https://cush-bookstore-api.herokuapp.com/api/v1/category', { mode: 'cors' })
     .then(response => {
       const categories = response.data;
       dispatch(fetchCategorySuccess(categories));

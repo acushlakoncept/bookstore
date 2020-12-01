@@ -6,9 +6,9 @@ function Book({ book, handleRemoveBook }) {
     <div className="book main">
       <div className="book main-container">
         <div className="book information">
-          <div className="book category">{book.category}</div>
+          <div className="book category">{book.category.name}</div>
           <div className="book title">{book.title}</div>
-          <div className="book writer">Suzanne Collins</div>
+          <div className="book writer">{book.author}</div>
         </div>
 
         <div className="book buttons">
@@ -51,6 +51,7 @@ Book.propTypes = {
   book: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
   }),
   handleRemoveBook: PropTypes.func.isRequired,
