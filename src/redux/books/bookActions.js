@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as actions from './bookTypes';
 
 export const addBook = (title, category) => ({
@@ -15,29 +16,34 @@ export const removeBook = id => ({
   },
 });
 
-export const fetchBooksRequest = () => {
-  return {
-    type: actions.FETCH_BOOKS
-  };
-};
+export const fetchBooksRequest = () => ({
+  type: actions.FETCH_BOOKS,
+});
 
-export const fetchBooksSuccess = (books) => {
-  return {
-    type: actions.FETCH_BOOKS_SUCCESS,
-    payload: books
-  };
-};
+export const fetchBooksSuccess = books => ({
+  type: actions.FETCH_BOOKS_SUCCESS,
+  payload: books,
+});
 
-export const fetchBooksFailure = (error) => {
-  return {
-    type: actions.FETCH_BOOKS_FAILURE,
-    payload: error
-  };
-};
+export const fetchBooksFailure = error => ({
+  type: actions.FETCH_BOOKS_FAILURE,
+  payload: error,
+});
 
 export const changeFilter = category => ({
   type: actions.CHANGE_FILTER,
-  payload: {
-    category,
-  },
+  payload: category,
 });
+
+export const fetchBooks = () => function (dispatch) {
+  dispatch(fetchBooksRequest());
+  axios
+    .get('https://cush-bookstore-api.herokuapp.com/api/v1/books')
+    .then(response => {
+      const books = response.data;
+      dispatch(fetchBooksSuccess(books));
+    })
+    .catch(error => {
+      dispatch(fetchBooksFailure(error.message));
+    });
+};
