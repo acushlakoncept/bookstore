@@ -6,7 +6,7 @@ export const initialState = {
   books: [],
   categories: [],
   filter: 'All',
-  error: ""
+  error: '',
 };
 
 const store = createStore(rootReducer, initialState);
