@@ -10,7 +10,6 @@ function BooksList({ bookData, fetchBooks, filter }) {
     fetchBooks();
   }, []);
 
-  // eslint-disable-next-line no-unused-vars
   const filterBooks = allBooks => (filter === 'All'
     ? allBooks
     : allBooks.filter(book => book.category.name === filter));

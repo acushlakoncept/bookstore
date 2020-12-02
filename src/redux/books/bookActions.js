@@ -21,6 +21,14 @@ export const fetchBooksRequest = () => ({
   type: actions.FETCH_BOOKS_REQUEST,
 });
 
+export const addBooksRequest = () => ({
+  type: actions.ADD_BOOKS_REQUEST,
+});
+
+export const addBooksSuccess = () => ({
+  type: actions.ADD_BOOKS_SUCCESS,
+});
+
 export const fetchBooksSuccess = books => ({
   type: actions.FETCH_BOOKS_SUCCESS,
   payload: books,
@@ -47,20 +55,23 @@ export const fetchBooks = () => function (dispatch) {
     });
 };
 
-export const addBooks = () => function (dispatch, title, author, category) {
+export const addBooks = (title, author, category) => function (dispatch) {
   const bookInfo = {
     title,
     author,
     category_id: category,
   };
 
-  dispatch(fetchBooksRequest());
+  dispatch(addBooksRequest());
   axios
     // .get('https://bookstore-api-ud.herokuapp.com/api/v1/books', {
-    .post('http://localhost:3001/api/v1/books', { bookInfo })
+    .post('http://localhost:3001/api/v1/books', bookInfo)
     .then(response => {
-      const book = response.data;
-      dispatch(fetchBooksSuccess(book));
+      // const book = response.data;
+      if (response.status === 201) {
+        dispatch(fetchBooks());
+      }
+      // dispatch(fetchBooksSuccess(book));
     })
     .catch(error => {
       dispatch(fetchBooksFailure(error.message));

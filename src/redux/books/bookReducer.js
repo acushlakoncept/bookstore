@@ -1,4 +1,10 @@
-import { FETCH_BOOKS_FAILURE, FETCH_BOOKS_REQUEST, FETCH_BOOKS_SUCCESS } from './bookTypes';
+import {
+  FETCH_BOOKS_FAILURE,
+  FETCH_BOOKS_REQUEST,
+  FETCH_BOOKS_SUCCESS,
+  ADD_BOOKS_REQUEST,
+  ADD_BOOKS_SUCCESS,
+} from './bookTypes';
 
 const initialState = {
   loading: false,
@@ -8,7 +14,7 @@ const initialState = {
 
 const bookReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_BOOKS_REQUEST:
+    case FETCH_BOOKS_REQUEST || ADD_BOOKS_REQUEST:
       return {
         ...state,
         loading: true,
@@ -18,6 +24,12 @@ const bookReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         books: action.payload,
+        error: '',
+      };
+    case ADD_BOOKS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
         error: '',
       };
     case FETCH_BOOKS_FAILURE:

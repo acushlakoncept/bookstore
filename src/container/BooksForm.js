@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-// import { useDispatch } from 'react-redux';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+// import axios from 'axios';
+import { addBooks } from '../redux/books/bookActions';
 
 const CATEGORIES = [
   'Actions',
@@ -12,35 +13,18 @@ const CATEGORIES = [
   'Sci-Fi',
 ];
 function BooksForm() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [category, setCategory] = useState('Actions');
+  const [, setCategory] = useState('Actions');
   const [catIndex, setCatIndex] = useState();
-  console.log(category);
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    // const header = {
-    //   'Content-Type': 'multipart/form-data',
-    //   'Access-Control-Allow-Origin': '*',
-    // };
-
     if (title && author && catIndex) {
-      const bookInfo = {
-        title,
-        author,
-        category_id: catIndex,
-      };
+      dispatch(addBooks(title, author, catIndex));
 
-      axios.post('http://localhost:3001/api/v1/books',
-        bookInfo)
-        .then(res => {
-          console.log(res);
-          console.log(res.data);
-        });
-      // dispatch(addBooks(title, author, catIndex));
       setTitle('');
       setAuthor('');
       setCategory('Actions');
