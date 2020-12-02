@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
+import { BeatLoader } from 'react-spinners';
 import { fetchBooks } from '../redux/index';
 import Book from '../components/Book';
 import { removeBook } from '../redux/books/bookActions';
@@ -19,7 +20,7 @@ function BooksList({ bookData, fetchBooks, filter }) {
 
   // eslint-disable-next-line no-nested-ternary
   return bookData.loading ? (
-    <h2 className="center">loading...</h2>
+    <h2 className="center"><BeatLoader size={16} color="skyblue" /></h2>
   ) : bookData.error ? (
     <h2 className="center">{bookData.error}</h2>
   ) : (
