@@ -26,8 +26,7 @@ export const fetchBooksFailure = error => ({
 export const fetchBooks = () => function (dispatch) {
   dispatch(fetchBooksRequest());
   axios
-    // .get('https://bookstore-api-ud.herokuapp.com/api/v1/books', {
-    .get('http://localhost:3001/api/v1/books', {
+    .get('https://bookstore-api-ud.herokuapp.com/api/v1/books', {
       mode: 'cors',
     })
     .then(response => {
@@ -48,8 +47,7 @@ export const addBook = (title, author, category) => function (dispatch) {
 
   dispatch(addBooksRequest());
   axios
-    // .get('https://bookstore-api-ud.herokuapp.com/api/v1/books', {
-    .post('http://localhost:3001/api/v1/books', bookInfo)
+    .post('https://bookstore-api-ud.herokuapp.com/api/v1/books', bookInfo)
     .then(response => {
       if (response.status === 201) {
         dispatch(fetchBooks());
@@ -63,8 +61,7 @@ export const addBook = (title, author, category) => function (dispatch) {
 export const removeBook = id => function (dispatch) {
   dispatch(addBooksRequest());
   axios
-    // .get('https://bookstore-api-ud.herokuapp.com/api/v1/books', {
-    .delete(`http://localhost:3001/api/v1/books/${id}`)
+    .delete(`https://bookstore-api-ud.herokuapp.com/api/v1/books/${id}`)
     .then(response => {
       if (response.status === 204) {
         dispatch(fetchBooks());
