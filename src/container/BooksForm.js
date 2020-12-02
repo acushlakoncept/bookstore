@@ -17,7 +17,7 @@ function BooksForm() {
   const [author, setAuthor] = useState('');
   const [category, setCategory] = useState('Actions');
   const [catIndex, setCatIndex] = useState();
-  console.log(catIndex);
+  console.log(category);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -27,15 +27,15 @@ function BooksForm() {
     //   'Access-Control-Allow-Origin': '*',
     // };
 
-    if (title && author && category) {
+    if (title && author && catIndex) {
       const bookInfo = {
         title,
         author,
-        category_id: category,
+        category_id: catIndex,
       };
 
       axios.post('http://localhost:3001/api/v1/books',
-        { bookInfo })
+        bookInfo)
         .then(res => {
           console.log(res);
           console.log(res.data);
