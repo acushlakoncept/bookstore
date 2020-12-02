@@ -1,21 +1,12 @@
 import axios from 'axios';
 import * as actions from './bookTypes';
 
-export const addBook = (title, author, category) => ({
-  type: actions.CREATE_BOOK,
-  payload: {
-    title,
-    author,
-    category,
-  },
-});
-
-export const removeBook = id => ({
-  type: actions.REMOVE_BOOK,
-  payload: {
-    id,
-  },
-});
+// export const removeBook = id => ({
+//   type: actions.REMOVE_BOOK,
+//   payload: {
+//     id,
+//   },
+// });
 
 export const fetchBooksRequest = () => ({
   type: actions.FETCH_BOOKS_REQUEST,
@@ -55,7 +46,7 @@ export const fetchBooks = () => function (dispatch) {
     });
 };
 
-export const addBooks = (title, author, category) => function (dispatch) {
+export const addBook = (title, author, category) => function (dispatch) {
   const bookInfo = {
     title,
     author,
@@ -67,20 +58,26 @@ export const addBooks = (title, author, category) => function (dispatch) {
     // .get('https://bookstore-api-ud.herokuapp.com/api/v1/books', {
     .post('http://localhost:3001/api/v1/books', bookInfo)
     .then(response => {
-      // const book = response.data;
       if (response.status === 201) {
         dispatch(fetchBooks());
       }
-      // dispatch(fetchBooksSuccess(book));
     })
     .catch(error => {
       dispatch(fetchBooksFailure(error.message));
     });
 };
 
-// axios.post('https://reqres.in/invalid-url', article)
-//         .then(response => this.setState({ articleId: response.data.id }))
-//         .catch(error => {
-//             this.setState({ errorMessage: error.message });
-//             console.error('There was an error!', error);
-//         });
+export const removeBook = id => function (dispatch) {
+  dispatch(addBooksRequest());
+  axios
+    // .get('https://bookstore-api-ud.herokuapp.com/api/v1/books', {
+    .delete(`http://localhost:3001/api/v1/books/${id}`)
+    .then(response => {
+      if (response.status === 204) {
+        dispatch(fetchBooks());
+      }
+    })
+    .catch(error => {
+      dispatch(fetchBooksFailure(error.message));
+    });
+};

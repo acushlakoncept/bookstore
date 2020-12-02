@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-// import axios from 'axios';
-import { addBooks } from '../redux/books/bookActions';
+import { addBook } from '../redux/books/bookActions';
 
 const CATEGORIES = [
   'Actions',
@@ -23,7 +22,7 @@ function BooksForm() {
     e.preventDefault();
 
     if (title && author && catIndex) {
-      dispatch(addBooks(title, author, catIndex));
+      dispatch(addBook(title, author, catIndex));
 
       setTitle('');
       setAuthor('');
