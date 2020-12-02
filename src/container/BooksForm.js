@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addBook } from '../redux/index';
+// import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
 const CATEGORIES = [
   'Actions',
@@ -12,15 +12,37 @@ const CATEGORIES = [
   'Sci-Fi',
 ];
 function BooksForm() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
   const [category, setCategory] = useState('Actions');
+  const [catIndex, setCatIndex] = useState();
+  console.log(catIndex);
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (title && category) {
-      dispatch(addBook(title, category));
+
+    // const header = {
+    //   'Content-Type': 'multipart/form-data',
+    //   'Access-Control-Allow-Origin': '*',
+    // };
+
+    if (title && author && category) {
+      const bookInfo = {
+        title,
+        author,
+        category_id: category,
+      };
+
+      axios.post('http://localhost:3001/api/v1/books',
+        { bookInfo })
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+        });
+      // dispatch(addBooks(title, author, catIndex));
       setTitle('');
+      setAuthor('');
       setCategory('Actions');
       e.target.reset();
     }
@@ -28,7 +50,11 @@ function BooksForm() {
 
   const handleChange = e => {
     if (e.target.name === 'title') setTitle(e.target.value);
-    if (e.target.name === 'category') setCategory(e.target.value);
+    if (e.target.name === 'category') {
+      setCategory(e.target.value);
+      setCatIndex(e.target.selectedIndex);
+    }
+    if (e.target.name === 'author') setAuthor(e.target.value);
   };
 
   return (
@@ -44,6 +70,15 @@ function BooksForm() {
           required
         />
 
+        <input
+          name="author"
+          onChange={handleChange}
+          type="text"
+          placeholder="Book Author"
+          className="books-form input "
+          required
+        />
+
         <select
           className="books-form select-category "
           onChange={handleChange}
@@ -53,8 +88,8 @@ function BooksForm() {
           <option disabled value>
             Select a category
           </option>
-          {CATEGORIES.map(category => (
-            <option key={category} value={category}>
+          {CATEGORIES.map((category, index) => (
+            <option key={category} name={index} value={category}>
               {category}
             </option>
           ))}

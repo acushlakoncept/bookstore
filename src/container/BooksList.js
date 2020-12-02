@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { fetchBooks } from '../redux/index';
 import Book from '../components/Book';
 import { removeBook } from '../redux/books/bookActions';
 
-function BooksList({ bookData, fetchBooks }) {
+function BooksList({ bookData, fetchBooks, filter }) {
   useEffect(() => {
     fetchBooks();
   }, []);
 
-  const filter = useSelector(state => state.filter);
+  // eslint-disable-next-line no-unused-vars
   const filterBooks = allBooks => (filter === 'All'
     ? allBooks
     : allBooks.filter(book => book.category.name === filter));
@@ -41,6 +41,7 @@ function BooksList({ bookData, fetchBooks }) {
 
 const mapStateToProps = state => ({
   bookData: state.books,
+  filter: state.filter,
 });
 
 const mapDispatchToProps = dispatch => ({
