@@ -6,10 +6,12 @@ We developed a bookstore application for a fictional company using Redux and Rea
 - Updating the bookstore with recent books usign the Add book button
 - Removing books from the bookstore
 
+The bookstore app current uses [bookstore-api](https://github.com/acushlakoncept/bookstore-api), A backend API, I developed using Ruby on Rails.
+
 ![screenshot](./bookstore.gif)
 
 ## Live Demo
-[Live Demo](https://bookstore-cms-ozan.herokuapp.com/)
+[Live Demo](https://bookstorecms-react.herokuapp.com/)
 
 ## Getting Started
 
@@ -22,7 +24,7 @@ Make sure Node.js is running on your local machine
 ### Setup
 
 ~~~bash
-$ git clone https://github.com/ozovalihasan/bookstore.git
+$ git clone https://github.com/acushlakoncept/bookstore-api.git
 $ cd bookstore
 ~~~
 
