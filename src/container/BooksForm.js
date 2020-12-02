@@ -16,7 +16,7 @@ function BooksForm() {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [, setCategory] = useState('Actions');
-  const [catIndex, setCatIndex] = useState();
+  const [catIndex, setCatIndex] = useState(1);
 
   const handleSubmit = e => {
     e.preventDefault();
