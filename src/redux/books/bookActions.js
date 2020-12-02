@@ -1,13 +1,6 @@
 import axios from 'axios';
 import * as actions from './bookTypes';
 
-// export const removeBook = id => ({
-//   type: actions.REMOVE_BOOK,
-//   payload: {
-//     id,
-//   },
-// });
-
 export const fetchBooksRequest = () => ({
   type: actions.FETCH_BOOKS_REQUEST,
 });
